@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32002.185
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Froala.Web", "Froala.Web\Froala.Web.csproj", "{3FC3BC1D-2CD9-4A5B-90B8-5E7838461F25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3FC3BC1D-2CD9-4A5B-90B8-5E7838461F25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FC3BC1D-2CD9-4A5B-90B8-5E7838461F25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FC3BC1D-2CD9-4A5B-90B8-5E7838461F25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FC3BC1D-2CD9-4A5B-90B8-5E7838461F25}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9AB1C7C1-4F0E-42B4-AF3B-4041E95BFC3F}
+	EndGlobalSection
+EndGlobal
