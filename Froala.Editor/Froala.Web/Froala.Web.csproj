@@ -160,6 +160,22 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Message.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Message.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Message.en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Message.en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Message.ja.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Message.ja.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,10 +183,30 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\froala_content.css" />
+    <Content Include="Content\froala_content.min.css" />
+    <Content Include="Content\froala_editor.css" />
+    <Content Include="Content\froala_editor.min.css" />
+    <Content Include="Content\froala_page.css" />
+    <Content Include="Content\froala_style.css" />
+    <Content Include="Content\froala_style.min.css" />
+    <Content Include="Content\img\preloader.gif" />
+    <Content Include="Content\themes\dark.css" />
+    <Content Include="Content\themes\dark.min.css" />
+    <Content Include="Content\themes\gray.css" />
+    <Content Include="Content\themes\gray.min.css" />
+    <Content Include="Content\themes\red.css" />
+    <Content Include="Content\themes\red.min.css" />
+    <Content Include="Content\themes\royal.css" />
+    <Content Include="Content\themes\royal.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\ajax-loading.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\froala-editor\css\froala_editor.css" />
@@ -266,6 +302,13 @@
     <Content Include="Scripts\froala-editor\html\image_s3_upload.php" />
     <Content Include="Scripts\froala-editor\html\file_s3_upload.php" />
     <Content Include="Scripts\froala-editor\.github\ISSUE_TEMPLATE.md" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\froala-editor\html\initialization\edit_in_popup.html" />
     <Content Include="Scripts\froala-editor\html\initialization\initialized_event.html" />
@@ -428,16 +471,74 @@
     <Content Include="Scripts\froala-editor\js\third_party\image_tui.min.js" />
     <Content Include="Scripts\froala-editor\js\third_party\showdown.min.js" />
     <Content Include="Scripts\froala-editor\js\third_party\spell_checker.min.js" />
+    <Content Include="Scripts\froala_editor.min.js" />
+    <Content Include="Scripts\froala_editor_ie8.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.11.1.min.js" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\langs\ar.js" />
+    <Content Include="Scripts\langs\bs.js" />
+    <Content Include="Scripts\langs\cs.js" />
+    <Content Include="Scripts\langs\da.js" />
+    <Content Include="Scripts\langs\de.js" />
+    <Content Include="Scripts\langs\en_ca.js" />
+    <Content Include="Scripts\langs\en_gb.js" />
+    <Content Include="Scripts\langs\en_us.js" />
+    <Content Include="Scripts\langs\es.js" />
+    <Content Include="Scripts\langs\fa.js" />
+    <Content Include="Scripts\langs\fi.js" />
+    <Content Include="Scripts\langs\fr.js" />
+    <Content Include="Scripts\langs\he.js" />
+    <Content Include="Scripts\langs\hr.js" />
+    <Content Include="Scripts\langs\hu.js" />
+    <Content Include="Scripts\langs\id.js" />
+    <Content Include="Scripts\langs\it.js" />
+    <Content Include="Scripts\langs\ja.js" />
+    <Content Include="Scripts\langs\ko.js" />
+    <Content Include="Scripts\langs\me.js" />
+    <Content Include="Scripts\langs\nb.js" />
+    <Content Include="Scripts\langs\nl.js" />
+    <Content Include="Scripts\langs\pl.js" />
+    <Content Include="Scripts\langs\pt_br.js" />
+    <Content Include="Scripts\langs\pt_pt.js" />
+    <Content Include="Scripts\langs\ro.js" />
+    <Content Include="Scripts\langs\ru.js" />
+    <Content Include="Scripts\langs\sr.js" />
+    <Content Include="Scripts\langs\sv.js" />
+    <Content Include="Scripts\langs\th.js" />
+    <Content Include="Scripts\langs\tr.js" />
+    <Content Include="Scripts\langs\uk.js" />
+    <Content Include="Scripts\langs\zh_cn.js" />
+    <Content Include="Scripts\langs\zh_tw.js" />
+    <Content Include="Scripts\libs\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\libs\jquery-1.11.1.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\plugins\block_styles.min.js" />
+    <Content Include="Scripts\plugins\char_counter.min.js" />
+    <Content Include="Scripts\plugins\colors.min.js" />
+    <Content Include="Scripts\plugins\file_upload.min.js" />
+    <Content Include="Scripts\plugins\font_family.min.js" />
+    <Content Include="Scripts\plugins\font_size.min.js" />
+    <Content Include="Scripts\plugins\fullscreen.min.js" />
+    <Content Include="Scripts\plugins\inline_styles.min.js" />
+    <Content Include="Scripts\plugins\lists.min.js" />
+    <Content Include="Scripts\plugins\media_manager.min.js" />
+    <Content Include="Scripts\plugins\tables.min.js" />
+    <Content Include="Scripts\plugins\urls.min.js" />
+    <Content Include="Scripts\plugins\video.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -449,13 +550,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -469,6 +568,20 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Message.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Message.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Message.ja.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Message.ja.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Message.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Message.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

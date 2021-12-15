@@ -1,0 +1,171 @@
+﻿@model Froala.Web.Models.User
+@{
+    ViewBag.Title = "Index";
+}
+
+<style type="text/css">
+
+    input[type=button], input[type=submit], input[type=reset] {
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .froala-element {
+        font-family: tahoma;
+        font-size: 9pt;
+    }
+
+    .modal {
+        position: fixed;
+        z-index: 999;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        background-color: Black;
+        filter: alpha(opacity=60);
+        opacity: 0.6;
+        -moz-opacity: 0.8;
+        display: none;
+    }
+
+    .center {
+        z-index: 1000;
+        margin: 50px auto;
+        padding: 10px;
+        width: 130px;
+        background-color: White;
+        border-radius: 10px;
+        filter: alpha(opacity=100);
+        opacity: 1;
+        -moz-opacity: 1;
+    }
+
+        .center img {
+            height: 128px;
+            width: 128px;
+        }
+</style>
+
+<div id="ajax-loading" class="modal">
+    <div class="center">
+        <img src="~/images/ajax-loading.gif" />
+    </div>
+</div>
+
+<div class=" container">
+    <div class="row">
+        <div class="col-12">
+
+            <h3>
+                Edit Person
+            </h3>
+
+            @using (Ajax.BeginForm(actionName: "Index",
+                    controllerName: "Home",
+                    ajaxOptions: new AjaxOptions
+                    {
+                        HttpMethod = "POST",
+                        LoadingElementId = "ajax-loading",
+                        OnSuccess = "OnSuccess",
+                        OnFailure = "OnFailure",
+                    },
+                    routeValues: null,
+                    htmlAttributes: new { id = "froalaForm" }))
+            {
+                @Html.HiddenFor(model => model.UserId)
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FullName, new { @class = "control-label" })
+                    @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Description, new { @class = "control-label" })
+                    @Html.ValidationMessageFor(m => m.Description)
+                    @Html.TextAreaFor(m => m.Description, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <input type="submit" value="Submit" />
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+        <script type="text/javascript">
+            function removeAllTagsAndTrim(html) {
+                return !html ? "" : jQuery.trim(html.replace(/(<([^>]+)>)/ig, ""));
+            }
+            jQuery.validator.setDefaults({ ignore: ":hidden:not(textarea)" });
+            jQuery.validator.methods.originalRequired = jQuery.validator.methods.required;
+            jQuery.validator.addMethod("required", function (value, element, param) {
+                value = removeAllTagsAndTrim(value);
+                if (!value) {
+                    $(".froala-element").focus();
+                    $(".froala-element").css({ "border-color": "red" });
+                    return false;
+                }
+                return jQuery.validator.methods.originalRequired.call(this, value, element, param);
+            }, jQuery.validator.messages.required);
+        </script>
+
+        <script type="text/javascript">
+
+        $(window).load(function () {
+            $('#ajax-loading').hide();
+        });
+
+        $(function () {
+            $('#Description').editable({
+                buttons: ["bold", "italic", "underline", "strikeThrough", "fontFamily",
+                    "fontSize", "color", "formatBlock", "align", "insertOrderedList",
+                    "insertUnorderedList", "outdent", "indent", "selectAll", "createLink",
+                    "uploadFile",
+                    "insertImage", "insertVideo", "undo", "redo", "html", "save", "inserthorizontalrule"],
+                inlineMode: false,
+                inverseSkin: true,
+                preloaderSrc: '@Url.Content("~/Content/img/preloader.gif")',
+                allowedImageTypes: ["jpeg", "jpg", "png"],
+                height: 300,
+                language: "ja",
+                direction: "ltr",
+                fontList: ["Tahoma, Geneva", "Arial, Helvetica", "Impact, Charcoal"],
+                autosave: true,
+                autosaveInterval: 2500,
+                saveURL: '@Url.Action("FroalaAutoSave", "Home")',
+                saveParams: { userId: getUserId() },
+                spellcheck: true,
+                plainPaste: true,
+                imageButtons: ["removeImage", "replaceImage", "linkImage"],
+                borderColor: '#00008b',
+                imageUploadURL: '@Url.Action("FroalaUploadImage", "Home")',
+                imageParams: { userId: getUserId() },
+                enableScript: false,
+                fileUploadURL: '@Url.Action("FroalaUploadFile", "Home")',
+                fileUploadParams: { userId: getUserId() }
+            });
+
+            function getUserId() {
+                var userId = $('#UserId').val();
+                console.log(userId);
+                return userId;
+            }
+        });
+
+        function OnSuccess(response) {
+            var message = "User Id: " + response.UserId;
+            message += "\nFull Name: " + response.FullName;
+            alert(message);
+        }
+
+        function OnFailure(response) {
+            alert("Error occured.");
+        }
+        </script>
+    }
