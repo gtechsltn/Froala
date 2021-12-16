@@ -1,16 +1,35 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
+<head lang="ja">
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    @* Thiết định khung nhìn để trang web dễ nhìn trên tất cả các thiết bị. *@
+    @* Trong đó: *@
+    @*   width=device-width là để điều chỉnh cho khớp độ rộng màn hình với số pixel của thiết bị. *@
+    @*   initial-scale=1 để thiết lập tỉ lệ zoom ban đầu là 1:1 giữa pixel CSS và pixel của thiết bị. *@
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @* Báo cho Google có thực hiện hay không việc lập chỉ mục (index), hay theo dõi (follow) trang hay không? *@
+    <meta name="robots" content="noindex">
+    @* Chế độ xem tương thích chỉ ảnh hưởng đến IE8, 9 và 10.
+        Nó chỉ được giới thiệu trong IE8 và đã bị vô hiệu hóa trong IE11. *@
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    @* Tự động tải lại trang web sau 30s. *@
+    @*<meta http-equiv="refresh" content="30">*@
+    @* Định nghĩa một từ khóa cho trang web. *@
+    <meta name="keywords" content="Froala">
+    @* Định nghĩa một mô tả cho trang web. *@
+    <meta name="description" content="Froala">
+    @* Định nghĩa tác giả của trang web. *@
+    <meta name="author" content="Nguyễn Viết Mạnh">
     <title>@ViewBag.Title</title>
+    @* Modernizr là một thư viện JavaScript nhẹ dùng để nhận biết tính năng HTML5 và CSS3 trong trình duyệt của bạn. *@
     <link href="~/Content/font-awesome.css" rel="stylesheet" />
     <link href="~/Content/froala_editor.css" rel="stylesheet" />
     <link href="~/Content/froala_page.css" rel="stylesheet" />
     <link href="~/Content/themes/dark.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/toast.css" rel="stylesheet" />
+    <link href="~/Content/ajax-loading.css" rel="stylesheet" />
 </head>
 <body>
     @RenderBody()
@@ -38,7 +57,16 @@
     <script src="~/Scripts/plugins/video.min.js"></script>
 
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/toast.js"></script>
 
     @RenderSection("Scripts", required: false)
+
+    <script>
+        $body = $("body");
+        $(document).on({
+            ajaxStart: function () { $body.addClass("loading"); },
+            ajaxStop: function () { $body.removeClass("loading"); }
+        });
+    </script>
 </body>
 </html>

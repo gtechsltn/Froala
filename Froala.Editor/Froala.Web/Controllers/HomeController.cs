@@ -3,6 +3,8 @@ using Microsoft.Security.Application;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
+using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +14,7 @@ namespace Froala.Web.Controllers
     public class HomeController : Controller
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(Guid? userId)
         {
             // Microsoft .NET CultureInfo "Japanese (Japan)" (ja-JP)
             // https://www.localeplanet.com/dotnet/ja-JP/index.html
@@ -22,12 +24,15 @@ namespace Froala.Web.Controllers
             Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
             Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
 
-            var user = new User()
+            //Default User
+            User user = new User();
+
+            if (!userId.HasValue)
             {
-                UserId = Guid.NewGuid(),
-                FullName = "藤原竜也 (ふじわらたつや)",
-                Description = @"
-<table class='prof-tbl'>
+                user.UserId = Guid.NewGuid();
+                user.FullName = "藤原竜也 (ふじわらたつや)";
+                user.Description = @"
+< table class='prof-tbl'>
     <tbody>
         <tr>
 		    <th><p>出身地</p></th>
@@ -51,8 +56,8 @@ namespace Froala.Web.Controllers
 	    </tr>
     </tbody>
 </table>
-"
-            };
+";
+            }
 
             return View(user);
         }
@@ -61,11 +66,20 @@ namespace Froala.Web.Controllers
         [ValidateInput(false)]
         public ActionResult Index(User user)
         {
-            var body = Sanitizer.GetSafeHtml(user.Description);
-
-            SaveBody(body);
-
-            return RedirectToAction("Index");
+            string statusMessage;
+            string toastDataKind;
+            try
+            {
+                var body = Sanitizer.GetSafeHtml(user.Description);
+                statusMessage = SaveBody(body);
+                toastDataKind = ToastDataKind.Success.ToString().ToLower();
+            }
+            catch (Exception ex)
+            {
+                statusMessage = ex.ToString();
+                toastDataKind = ToastDataKind.Error.ToString().ToLower();
+            }
+            return Json(new { Success = true, Code = (int)HttpStatusCode.OK, Message = statusMessage, ToastDataKind = toastDataKind }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -73,10 +87,16 @@ namespace Froala.Web.Controllers
         public ActionResult FroalaAutoSave(string body, Guid? userId)
         {
             body = Sanitizer.GetSafeHtml(body);
-
-            SaveBody(body);
-
-            return new EmptyResult();
+            string str;
+            try
+            {
+                str = SaveBody(body);
+            }
+            catch (Exception ex)
+            {
+                str = ex.ToString();
+            }
+            return Json(new { Success = true, Code = (int)HttpStatusCode.OK, Message = str }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -97,15 +117,19 @@ namespace Froala.Web.Controllers
             return Json(new { link = "files/" + fileName }, JsonRequestBehavior.AllowGet);
         }
 
-        private void SaveBody(string body)
+        private string SaveBody(string body)
         {
-            //TODO: save body ...
+            var rootPath = Server.MapPath("~/files/");
+            var fileName = "body.html";
+            var filePath = Path.Combine(rootPath, fileName);
+            System.IO.File.WriteAllText(filePath, body, Encoding.UTF8);
             WaiteFewSeconds();
+            return Message.SaveSuccessfully;
         }
 
         private void WaiteFewSeconds()
         {
-            var fewSeconds = new TimeSpan(0, 0, 10);
+            var fewSeconds = new TimeSpan(0, 0, 5);
             Thread.Sleep(fewSeconds);
         }
     }

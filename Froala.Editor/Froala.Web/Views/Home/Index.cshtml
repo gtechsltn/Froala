@@ -21,13 +21,17 @@
         font-size: 9pt;
     }
 
+    .froala-wrapper .f-basic {
+        border: 1px solid #ccc;
+    }
+
     .modal {
         position: fixed;
         z-index: 999;
         height: 100%;
         width: 100%;
         top: 0;
-        background-color: Black;
+        /*background-color: Black;*/
         filter: alpha(opacity=60);
         opacity: 0.6;
         -moz-opacity: 0.8;
@@ -52,40 +56,35 @@
         }
 </style>
 
-<div id="ajax-loading" class="modal">
-    <div class="center">
-        <img src="~/images/ajax-loading.gif" />
-    </div>
-</div>
-
 <div class=" container">
     <div class="row">
         <div class="col-12">
 
-            <h3>
+            <h1>
                 @Html.Raw(Froala.Web.Message.EditPerson)
-            </h3>
+            </h1>
 
-            @using (Ajax.BeginForm(actionName: "Index",
-                    controllerName: "Home",
-                    ajaxOptions: new AjaxOptions
-                    {
-                        HttpMethod = "POST",
-                        LoadingElementId = "ajax-loading",
-                        OnSuccess = "OnSuccess",
-                        OnFailure = "OnFailure",
-                    },
-                    routeValues: null,
-                    htmlAttributes: new { id = "froalaForm" }))
+            @using (Ajax.BeginForm(
+                actionName: "Index",
+                controllerName: "Home",
+                ajaxOptions: new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    LoadingElementId = "ajax-loading",
+                    OnSuccess = "OnSuccess",
+                    OnFailure = "OnFailure",
+                },
+                routeValues: null,
+                htmlAttributes: new { id = "froalaForm" }))
             {
                 @Html.HiddenFor(model => model.UserId)
 
                 <div class="form-group">
-                    @Html.LabelFor(m => m.FullNameResx, new { @class = "control-label" })
+                    <label class="control-label">@Froala.Web.Message.FullName</label>
                     @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(m => m.DescriptionResx, new { @class = "control-label" })
+                    <label class="control-label">@Froala.Web.Message.Description</label>
                     @Html.ValidationMessageFor(m => m.Description)
                     @Html.TextAreaFor(m => m.Description, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
@@ -94,6 +93,14 @@
         </div>
     </div>
 </div>
+
+@* Ajax Loading *@
+<div class="modal"><!-- Place at bottom of page --></div>
+
+@*
+    Simple jQuery Toast Notifications (Growl): https://codepen.io/kieran/pen/ajLvjm
+*@
+<div id="toasts"></div>
 
 @section Scripts
 {
@@ -117,6 +124,7 @@
     <script type="text/javascript">
 
         $(window).load(function () {
+            $('#ajax-loading').show();
             $('#ajax-loading').hide();
         });
 
@@ -158,13 +166,30 @@
         });
 
         function OnSuccess(response) {
-            var message = "User Id: " + response.UserId;
-            message += "\nFull Name: " + response.FullName;
-            alert(message);
+            //debugger;
+            if (response && response.Success) {
+                window.statusMessage = response.Message;
+                window.toastDataKind = response.ToastDataKind;
+                showMessage();
+                //setTimeout(function () {
+                //    showMessage();
+                //}, 200);
+                //window.location.href = '@Url.Action("Index", "Home")';
+            }
         }
 
         function OnFailure(response) {
+            //debugger;
             alert("Error occured.");
+        }
+
+        function showMessage() {
+            //debugger;
+            $.toast({
+                autoDismiss: true,
+                message: window.statusMessage,
+                type: window.toastDataKind
+            });
         }
     </script>
 }

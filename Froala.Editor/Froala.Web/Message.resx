@@ -126,6 +126,9 @@
   <data name="FullName" xml:space="preserve">
     <value>Full Name</value>
   </data>
+  <data name="SaveSuccessfully" xml:space="preserve">
+    <value>Save Successfully</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
   </data>

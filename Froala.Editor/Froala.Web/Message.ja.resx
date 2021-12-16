@@ -126,6 +126,9 @@
   <data name="FullName" xml:space="preserve">
     <value>フルネーム</value>
   </data>
+  <data name="SaveSuccessfully" xml:space="preserve">
+    <value>正常に保存</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>送信</value>
   </data>
