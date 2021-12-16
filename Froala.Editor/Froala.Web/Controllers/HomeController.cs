@@ -67,19 +67,33 @@ namespace Froala.Web.Controllers
         public ActionResult Index(User user)
         {
             string statusMessage;
+            string errorMessage;
             string toastDataKind;
+            int code;
             try
             {
-                var body = Sanitizer.GetSafeHtml(user.Description);
-                statusMessage = SaveBody(body);
-                toastDataKind = ToastDataKind.Success.ToString().ToLower();
+                if (ModelState.IsValid)
+                {
+                    var body = Sanitizer.GetSafeHtml(user.Description);
+                    statusMessage = SaveBody(body);
+                    toastDataKind = ToastDataKind.Success.ToString().ToLower();
+                    code = (int)HttpStatusCode.OK;
+                }
+                else
+                {
+                    return View(nameof(Index), user);
+                }
             }
             catch (Exception ex)
             {
-                statusMessage = ex.ToString();
+                code = (int)HttpStatusCode.InternalServerError;
+                statusMessage = ex.Message;
+                errorMessage = ex.ToString();
+                Debug.WriteLine(errorMessage);
+                Logger.Log.Error(errorMessage);
                 toastDataKind = ToastDataKind.Error.ToString().ToLower();
             }
-            return Json(new { Success = true, Code = (int)HttpStatusCode.OK, Message = statusMessage, ToastDataKind = toastDataKind }, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true, Code = code, Message = statusMessage, ToastDataKind = toastDataKind }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -88,15 +102,20 @@ namespace Froala.Web.Controllers
         {
             body = Sanitizer.GetSafeHtml(body);
             string str;
+            int code;
             try
             {
                 str = SaveBody(body);
+                code = (int)HttpStatusCode.OK;
             }
             catch (Exception ex)
             {
                 str = ex.ToString();
+                Debug.WriteLine(str);
+                Logger.Log.Error(str);
+                code = (int)HttpStatusCode.InternalServerError;
             }
-            return Json(new { Success = true, Code = (int)HttpStatusCode.OK, Message = str }, JsonRequestBehavior.AllowGet);
+            return Json(new { Success = true, Code = code, Message = str }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -119,6 +138,7 @@ namespace Froala.Web.Controllers
 
         private string SaveBody(string body)
         {
+            ThrowException();
             var rootPath = Server.MapPath("~/files/");
             var fileName = "body.html";
             var filePath = Path.Combine(rootPath, fileName);
@@ -127,9 +147,23 @@ namespace Froala.Web.Controllers
             return Message.SaveSuccessfully;
         }
 
+        private void ThrowException()
+        {
+            try
+            {
+                var y = 0;
+                var x = 1 / y;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                throw;
+            }
+        }
+
         private void WaiteFewSeconds()
         {
-            var fewSeconds = new TimeSpan(0, 0, 5);
+            var fewSeconds = new TimeSpan(0, 0, 1);
             Thread.Sleep(fewSeconds);
         }
     }
