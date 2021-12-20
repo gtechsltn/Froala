@@ -1,0 +1,182 @@
+﻿@model Froala.Web.Models.User
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout126.cshtml";
+}
+
+<style type="text/css">
+
+    input[type=button], input[type=submit], input[type=reset] {
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        padding: 16px 32px;
+        text-decoration: none;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .froala-element {
+        font-family: tahoma;
+        font-size: 9pt;
+    }
+</style>
+
+<div class=" container">
+    <div class="row">
+        <div class="col-12">
+            <h3>Version 1.2.6</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+
+            <h1>
+                @Html.Raw(Froala.Web.Message.EditPerson)
+            </h1>
+
+            @using (Ajax.BeginForm(
+                actionName: "Index",
+                controllerName: "Home",
+                ajaxOptions: new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    LoadingElementId = "ajax-loading",
+                    OnSuccess = "OnSuccess",
+                    OnFailure = "OnFailure",
+                },
+                routeValues: null,
+                htmlAttributes: new { id = "froalaForm" }))
+            {
+                @Html.HiddenFor(model => model.UserId)
+
+                <div class="form-group">
+                    <label class="control-label">@Froala.Web.Message.FullName</label>
+                    @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">@Froala.Web.Message.Description</label>
+                    @Html.ValidationMessageFor(m => m.Description)
+                    @Html.TextAreaFor(m => m.Description, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <input type="submit" value="@Froala.Web.Message.Submit" />
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h3>Browser Support:</h3>
+            <ul style="margin-left: 25px;">
+                <li>Internet Explorer 11+</li>
+                <li>Microsoft Edge (Current - 1) and Current versions</li>
+                <li>Safari (Current - 1) and Current versions</li>
+                <li>Firefox (Current - 1) and Current versions</li>
+                <li>Chrome (Current - 1) and Current versions</li>
+                <li>Opera (Current - 1) and Current versions</li>
+                <li>iOS 10+</li>
+                <li>Android 6+</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+@* Ajax Loading *@
+<div class="modal"><!-- Place at bottom of page --></div>
+
+@*
+Simple jQuery Toast Notifications (Growl): https://codepen.io/kieran/pen/ajLvjm
+*@
+<div id="toasts"></div>
+
+    @section Scripts
+{
+        <script type="text/javascript">
+            function removeAllTagsAndTrim(html) {
+                return !html ? "" : jQuery.trim(html.replace(/(<([^>]+)>)/ig, ""));
+            }
+            jQuery.validator.setDefaults({ ignore: ":hidden:not(textarea)" });
+            jQuery.validator.methods.originalRequired = jQuery.validator.methods.required;
+            jQuery.validator.addMethod("required", function (value, element, param) {
+                value = removeAllTagsAndTrim(value);
+                if (!value) {
+                    $(".froala-element").focus();
+                    $(".froala-element").css({ "border-color": "red" });
+                    return false;
+                }
+                return jQuery.validator.methods.originalRequired.call(this, value, element, param);
+            }, jQuery.validator.messages.required);
+        </script>
+
+        <script type="text/javascript">
+
+        $(window).load(function () {
+            $('#ajax-loading').show();
+            $('#ajax-loading').hide();
+        });
+
+        $(function () {
+            $('#Description').editable({
+                buttons: ["table", "bold", "italic", "underline", "strikeThrough", "fontFamily",
+                    "fontSize", "color", "formatBlock", "align", "insertOrderedList",
+                    "insertUnorderedList", "outdent", "indent", "selectAll", "createLink",
+                    "uploadFile",
+                    "insertImage", "insertVideo", "undo", "redo", "html", "save", "inserthorizontalrule"],
+                inlineMode: false,
+                inverseSkin: true,
+                preloaderSrc: '@Url.Content("~/Content/img/preloader.gif")',
+                allowedImageTypes: ["jpeg", "jpg", "png"],
+                height: 300,
+                language: "ja",
+                direction: "ltr",
+                fontList: ["Tahoma, Geneva", "Arial, Helvetica", "Impact, Charcoal"],
+                autosave: true,
+                autosaveInterval: 2500,
+                saveURL: '@Url.Action("FroalaAutoSave", "Home")',
+                saveParams: { userId: getUserId() },
+                spellcheck: true,
+                plainPaste: true,
+                imageButtons: ["removeImage", "replaceImage", "linkImage"],
+                borderColor: '#00008b',
+                imageUploadURL: '@Url.Action("FroalaUploadImage", "Home")',
+                imageParams: { userId: getUserId() },
+                enableScript: false,
+                fileUploadURL: '@Url.Action("FroalaUploadFile", "Home")',
+                fileUploadParams: { userId: getUserId() }
+            });
+
+            function getUserId() {
+                var userId = $('#UserId').val();
+                console.log(userId);
+                return userId;
+            }
+        });
+
+        function OnSuccess(response) {
+            //debugger;
+            if (response && response.Success) {
+                window.statusMessage = response.Message;
+                window.toastDataKind = response.ToastDataKind;
+                showMessage();
+                //setTimeout(function () {
+                //    showMessage();
+                //}, 200);
+                //window.location.href = '@Url.Action("Index", "Home")';
+            }
+        }
+
+        function OnFailure(response) {
+            //debugger;
+            alert("Error occured.");
+        }
+
+        function showMessage() {
+            //debugger;
+            $.toast({
+                autoDismiss: true,
+                message: window.statusMessage,
+                type: window.toastDataKind
+            });
+        }
+    </script>
+}

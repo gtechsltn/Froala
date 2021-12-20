@@ -62,6 +62,104 @@ namespace Froala.Web.Controllers
             return View(user);
         }
 
+        [HttpGet]
+        public ActionResult Index126(Guid? userId)
+        {
+            // Microsoft .NET CultureInfo "Japanese (Japan)" (ja-JP)
+            // https://www.localeplanet.com/dotnet/ja-JP/index.html
+            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
+            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
+
+            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
+            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
+
+            //Default User
+            User user = new User();
+
+            if (!userId.HasValue)
+            {
+                user.UserId = Guid.NewGuid();
+                user.FullName = "藤原竜也 (ふじわらたつや)";
+                user.Description = @"
+< table class='prof-tbl'>
+    <tbody>
+        <tr>
+		    <th><p>出身地</p></th>
+		    <td><p>埼玉県</p></td>
+	    </tr>
+		<tr>
+		    <th><p>生年月日</p></th>
+		    <td><p>1982年5月15日</p></td>
+	    </tr>
+		<tr>
+		    <th><p>血液型</p></th>
+		    <td><p>A型</p></td>
+	    </tr>
+		<tr>
+		    <th><p>身長</p></th>
+		    <td><p>178cm</p></td>
+	    </tr>
+		<tr>
+		    <th><p>ファンクラブ</p></th>
+		    <td><p><a href='http://fc.horipro.jp/tatsuyafujiwara/' target='blank' onclick='_gaq.push(['_trackPageview','http://fc.horipro.jp/tatsuyafujiwara/'])'>藤原竜也オフィシャルファンクラブ ”DRAGON aRROWS”</a></p></td>
+	    </tr>
+    </tbody>
+</table>
+";
+            }
+
+            return View(user);
+        }
+
+        [HttpGet]
+        public ActionResult Index407(Guid? userId)
+        {
+            // Microsoft .NET CultureInfo "Japanese (Japan)" (ja-JP)
+            // https://www.localeplanet.com/dotnet/ja-JP/index.html
+            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
+            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
+
+            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
+            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
+
+            //Default User
+            User user = new User();
+
+            if (!userId.HasValue)
+            {
+                user.UserId = Guid.NewGuid();
+                user.FullName = "藤原竜也 (ふじわらたつや)";
+                user.Description = @"
+< table class='prof-tbl'>
+    <tbody>
+        <tr>
+		    <th><p>出身地</p></th>
+		    <td><p>埼玉県</p></td>
+	    </tr>
+		<tr>
+		    <th><p>生年月日</p></th>
+		    <td><p>1982年5月15日</p></td>
+	    </tr>
+		<tr>
+		    <th><p>血液型</p></th>
+		    <td><p>A型</p></td>
+	    </tr>
+		<tr>
+		    <th><p>身長</p></th>
+		    <td><p>178cm</p></td>
+	    </tr>
+		<tr>
+		    <th><p>ファンクラブ</p></th>
+		    <td><p><a href='http://fc.horipro.jp/tatsuyafujiwara/' target='blank' onclick='_gaq.push(['_trackPageview','http://fc.horipro.jp/tatsuyafujiwara/'])'>藤原竜也オフィシャルファンクラブ ”DRAGON aRROWS”</a></p></td>
+	    </tr>
+    </tbody>
+</table>
+";
+            }
+
+            return View(user);
+        }
+
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Index(User user)
