@@ -214,6 +214,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\ajax-loading.gif" />
+    <Content Include="Images\cute_cat.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\froala-editor\css\froala_editor.css" />
