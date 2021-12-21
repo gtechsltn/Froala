@@ -180,7 +180,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Message.ja.resx</DependentUpon>
     </Compile>
-    <Compile Include="Models\ToastDataType.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

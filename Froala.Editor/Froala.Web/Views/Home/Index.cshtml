@@ -2,12 +2,6 @@
     ViewBag.Title = "Index";
 }
 
-<!-- Include all Editor plugins CSS style. -->
-<link rel="stylesheet" href="~/Scripts/froala-editor/css/froala_editor.pkgd.min.css" />
-
-<!-- Include Code Mirror CSS. -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
-
 
 <div class=" container">
     <div class="row">
@@ -37,26 +31,8 @@
     </div>
 </div>
 
-@* Ajax Loading *@
-<div class="modal"><!-- Place at bottom of page --></div>
-
-@*
-    Simple jQuery Toast Notifications (Growl): https://codepen.io/kieran/pen/ajLvjm
-*@
-<div id="toasts"></div>
-
 @section Scripts
 {
-    <!-- Include all Editor plugins JS files. -->
-    <script type="text/javascript" src="~/Scripts/froala-editor/js/froala_editor.pkgd.min.js"></script>
-
-    <!-- Include Code Mirror JS. -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
-
-    <!-- Include PDF export JS lib. -->
-    <script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-
     <script>
         // Way 1:
         // new FroalaEditor('div#froala-editor');
@@ -64,7 +40,7 @@
         // Way 2:
         new FroalaEditor('#froala-editor', {
             documentReady: true,
-            toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'help', 'html', '|', 'undo', 'redo', 'trackChanges', 'markdown']
+            toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineStyle', 'paragraphStyle', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'insertFile', 'insertTable', '|', 'emoticons', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'getPDF', 'print', 'help', 'html', '|', 'undo', 'redo', 'trackChanges', 'markdown']
         });
     </script>
 }

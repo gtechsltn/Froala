@@ -50,7 +50,8 @@
                         <li><a href="https://froala.com/wysiwyg-editor/changelog/#4.0.7">Version 4.0.7</a></li>
                     </ul>
                 </li>
-                <li><a href="@Url.Action("Index407", "Home")">Current Version (4.0.7)</a></li>
+                <li><a href="@Url.Action("Index126", "Home")">Version 1.2.6 (1.2.6)</a></li>
+                <li><a href="@Url.Action("Index", "Home")">Current Version (4.0.7)</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#"><span class="glyphicon glyphicon-user"></span> @Message.SignUp</a></li>
@@ -62,6 +63,12 @@
     <div class="container">
         @RenderBody()
     </div>
+
+    <!-- Simple jQuery Toast Notifications (Growl): https://codepen.io/kieran/pen/ajLvjm -->
+    <div id="toasts"></div>
+
+    <!-- Ajax Loading: Place at bottom of page -->
+    <div class="modal"></div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>

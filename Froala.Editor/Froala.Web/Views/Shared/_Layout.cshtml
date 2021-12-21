@@ -28,7 +28,13 @@
     <link href="~/Content/Site.css" rel="stylesheet" />
     <link href="~/Content/toast.css" rel="stylesheet" />
     <link href="~/Content/ajax-loading.css" rel="stylesheet" />
-    <link href='https://cdn.jsdelivr.net/npm/froala-editor@4.0.7/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
+
+    <!-- Include all Editor plugins CSS style. -->
+    <link rel="stylesheet" href="~/Scripts/froala-editor/css/froala_editor.pkgd.min.css" />
+    @*<link href='https://cdn.jsdelivr.net/npm/froala-editor@4.0.7/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />*@
+
+    <!-- Include Code Mirror CSS. -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.css">
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -49,6 +55,7 @@
                         <li><a href="https://froala.com/wysiwyg-editor/changelog/#4.0.7">Version 4.0.7</a></li>
                     </ul>
                 </li>
+                <li><a href="@Url.Action("Index126", "Home")">Version 1.2.6 (1.2.6)</a></li>
                 <li><a href="@Url.Action("Index", "Home")">Current Version (4.0.7)</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -62,6 +69,12 @@
         @RenderBody()
     </div>
 
+    <!-- Simple jQuery Toast Notifications (Growl): https://codepen.io/kieran/pen/ajLvjm -->
+    <div id="toasts"></div>
+
+    <!-- Ajax Loading: Place at bottom of page -->
+    <div class="modal"></div>
+
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
@@ -70,8 +83,17 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/toast.js"></script>
 
-    @* WYSIWYG Editor- Froala *@
-    <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@4.0.7/js/froala_editor.pkgd.min.js'></script>
+    <!-- Include PDF export JS lib. -->
+    <script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
+    <!-- Include all Editor plugins JS files. -->
+    <script type="text/javascript" src="~/Scripts/froala-editor/js/froala_editor.pkgd.min.js"></script>
+
+    @*<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@4.0.7/js/froala_editor.pkgd.min.js'></script>*@
+
+    <!-- Include Code Mirror JS. -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/codemirror.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.3.0/mode/xml/xml.min.js"></script>
 
     @RenderSection("Scripts", required: false)
 

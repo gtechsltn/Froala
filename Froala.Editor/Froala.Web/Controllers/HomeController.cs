@@ -16,13 +16,7 @@ namespace Froala.Web.Controllers
         [HttpGet]
         public ActionResult Index(Guid? userId)
         {
-            // Microsoft .NET CultureInfo "Japanese (Japan)" (ja-JP)
-            // https://www.localeplanet.com/dotnet/ja-JP/index.html
-            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
-            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
-
-            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
-            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
+            PrintCultureInfo();
 
             //Default User
             User user = new User();
@@ -65,13 +59,7 @@ namespace Froala.Web.Controllers
         [HttpGet]
         public ActionResult Index126(Guid? userId)
         {
-            // Microsoft .NET CultureInfo "Japanese (Japan)" (ja-JP)
-            // https://www.localeplanet.com/dotnet/ja-JP/index.html
-            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
-            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
-
-            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
-            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
+            PrintCultureInfo();
 
             //Default User
             User user = new User();
@@ -114,13 +102,7 @@ namespace Froala.Web.Controllers
         [HttpGet]
         public ActionResult Index407(Guid? userId)
         {
-            // Microsoft .NET CultureInfo "Japanese (Japan)" (ja-JP)
-            // https://www.localeplanet.com/dotnet/ja-JP/index.html
-            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
-            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
-
-            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
-            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
+            PrintCultureInfo();
 
             //Default User
             User user = new User();
@@ -232,6 +214,17 @@ namespace Froala.Web.Controllers
             var rootPath = Server.MapPath("~/files/");
             file.SaveAs(Path.Combine(rootPath, fileName));
             return Json(new { link = "files/" + fileName }, JsonRequestBehavior.AllowGet);
+        }
+
+        private void PrintCultureInfo()
+        {
+            // Microsoft .NET CultureInfo "Japanese (Japan)" (ja-JP)
+            // https://www.localeplanet.com/dotnet/ja-JP/index.html
+            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
+            Debug.WriteLine(Thread.CurrentThread.CurrentCulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
+
+            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.Name); // = new System.Globalization.CultureInfo("ja-JP");
+            Debug.WriteLine(Thread.CurrentThread.CurrentUICulture.DisplayName); // = new System.Globalization.CultureInfo("ja-JP");
         }
 
         private string SaveBody(string body)
